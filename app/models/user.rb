@@ -1,5 +1,6 @@
 class User < ApplicationRecord
   has_secure_password
+  has_many :job_applications, dependent: :destroy
 
   before_save :downcase_email
 
@@ -12,14 +13,6 @@ class User < ApplicationRecord
             presence: true,
             length:   { minimum: 8 },
             if:       :password_digest_changed?
-
-  def self.ransackable_attributes(auth_object = nil)
-    ["email", "created_at", "updated_at", "id"]
-  end
-
-  def self.ransackable_associations(auth_object = nil)
-    []
-  end
 
   private
 

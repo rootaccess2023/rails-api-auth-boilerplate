@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2026_03_17_164443) do
+ActiveRecord::Schema[7.1].define(version: 2026_03_18_173415) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -26,6 +26,20 @@ ActiveRecord::Schema[7.1].define(version: 2026_03_17_164443) do
     t.index ["reset_password_token"], name: "index_admin_users_on_reset_password_token", unique: true
   end
 
+  create_table "job_applications", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.string "company"
+    t.string "job_title"
+    t.string "job_url"
+    t.string "location"
+    t.string "source"
+    t.string "stage"
+    t.text "notes"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_job_applications_on_user_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", null: false
     t.string "password_digest", null: false
@@ -34,4 +48,5 @@ ActiveRecord::Schema[7.1].define(version: 2026_03_17_164443) do
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 
+  add_foreign_key "job_applications", "users"
 end
