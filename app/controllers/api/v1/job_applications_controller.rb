@@ -8,7 +8,10 @@ class Api::V1::JobApplicationsController < Api::V1::BaseController
   end
 
   def show
-    render json: { job_application: @job_application }, status: :ok
+    render json: {
+      job_application: @job_application,
+      events: @job_application.application_events.order(created_at: :asc)
+    }, status: :ok
   end
 
   def create
