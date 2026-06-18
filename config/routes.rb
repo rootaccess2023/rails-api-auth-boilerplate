@@ -8,6 +8,8 @@ Rails.application.routes.draw do
       post   "login",   to: "auth#login"
       get    "me",      to: "users#me"
       delete "logout",  to: "auth#logout"
+
+      resources :job_applications, only: [:index, :create, :show]
     end
   end
 

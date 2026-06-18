@@ -1,6 +1,9 @@
 class User < ApplicationRecord
   has_secure_password
 
+  has_many :companies,        dependent: :destroy
+  has_many :job_applications, dependent: :destroy
+
   before_save :downcase_email
 
   validates :email,
