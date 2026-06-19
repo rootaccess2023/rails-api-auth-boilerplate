@@ -1,6 +1,7 @@
 module Api
   module V1
     class AuthController < ApplicationController
+      wrap_parameters false
 
       # POST /api/v1/signup
       def signup

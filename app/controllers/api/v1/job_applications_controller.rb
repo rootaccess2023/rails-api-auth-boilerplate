@@ -1,7 +1,7 @@
 module Api
   module V1
     class JobApplicationsController < ApplicationController
-      before_action :set_current_user
+      before_action :authenticate_user!
 
       # GET /api/v1/job_applications
       def index
@@ -37,15 +37,6 @@ module Api
       end
 
       private
-
-      def set_current_user
-        # TODO: replace with real auth — call authenticate_user! once login flow exists in the mobile app
-        @current_user = User.first
-      end
-
-      def current_user
-        @current_user
-      end
 
       def application_params
         params.permit(:role_title, :status, :location, :source, :applied_on)
