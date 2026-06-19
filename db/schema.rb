@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2026_06_18_000004) do
+ActiveRecord::Schema[7.1].define(version: 2026_06_19_000001) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -52,6 +52,16 @@ ActiveRecord::Schema[7.1].define(version: 2026_06_18_000004) do
     t.index ["user_id"], name: "index_job_applications_on_user_id"
   end
 
+  create_table "status_changes", force: :cascade do |t|
+    t.bigint "job_application_id", null: false
+    t.integer "from_status"
+    t.integer "to_status", null: false
+    t.datetime "changed_at", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["job_application_id"], name: "index_status_changes_on_job_application_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", null: false
     t.string "password_digest", null: false
@@ -63,4 +73,5 @@ ActiveRecord::Schema[7.1].define(version: 2026_06_18_000004) do
   add_foreign_key "companies", "users"
   add_foreign_key "job_applications", "companies"
   add_foreign_key "job_applications", "users"
+  add_foreign_key "status_changes", "job_applications"
 end

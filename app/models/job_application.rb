@@ -15,5 +15,7 @@ class JobApplication < ApplicationRecord
     withdrawn:    7
   }
 
+  has_many :status_changes, -> { order(changed_at: :desc) }, dependent: :destroy
+
   validates :role_title, presence: true
 end

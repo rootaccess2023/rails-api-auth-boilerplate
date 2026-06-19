@@ -9,7 +9,7 @@ Rails.application.routes.draw do
       get    "me",      to: "users#me"
       delete "logout",  to: "auth#logout"
 
-      resources :job_applications, only: [:index, :create, :show]
+      resources :job_applications, only: [:index, :create, :show, :update]
     end
   end
 
