@@ -10,6 +10,7 @@ Rails.application.routes.draw do
       delete "logout",  to: "auth#logout"
 
       resources :job_applications, only: [:index, :create, :show, :update]
+      resource  :home_summary,     only: [:show], controller: "home_summary"
     end
   end
 
