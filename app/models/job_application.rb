@@ -16,6 +16,7 @@ class JobApplication < ApplicationRecord
   }
 
   has_many :status_changes, -> { order(changed_at: :desc) }, dependent: :destroy
+  has_many :follow_ups,     dependent: :nullify
 
   validates :role_title, presence: true
 end

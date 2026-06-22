@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2026_06_19_000001) do
+ActiveRecord::Schema[7.1].define(version: 2026_06_19_000002) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -34,6 +34,19 @@ ActiveRecord::Schema[7.1].define(version: 2026_06_19_000001) do
     t.string "slug"
     t.index ["slug"], name: "index_companies_on_slug", unique: true
     t.index ["user_id"], name: "index_companies_on_user_id"
+  end
+
+  create_table "follow_ups", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "job_application_id"
+    t.string "title", null: false
+    t.datetime "due_at", null: false
+    t.datetime "completed_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["job_application_id"], name: "index_follow_ups_on_job_application_id"
+    t.index ["user_id", "completed_at"], name: "index_follow_ups_on_user_id_and_completed_at"
+    t.index ["user_id"], name: "index_follow_ups_on_user_id"
   end
 
   create_table "job_applications", force: :cascade do |t|
@@ -71,6 +84,8 @@ ActiveRecord::Schema[7.1].define(version: 2026_06_19_000001) do
   end
 
   add_foreign_key "companies", "users"
+  add_foreign_key "follow_ups", "job_applications"
+  add_foreign_key "follow_ups", "users"
   add_foreign_key "job_applications", "companies"
   add_foreign_key "job_applications", "users"
   add_foreign_key "status_changes", "job_applications"

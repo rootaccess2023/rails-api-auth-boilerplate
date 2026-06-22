@@ -3,6 +3,7 @@ class User < ApplicationRecord
 
   has_many :companies,        dependent: :destroy
   has_many :job_applications, dependent: :destroy
+  has_many :follow_ups,       dependent: :destroy
 
   before_save :downcase_email
 

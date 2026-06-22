@@ -75,6 +75,15 @@ module Api
         render json: { errors: e.record.errors.full_messages }, status: :unprocessable_entity
       end
 
+      # DELETE /api/v1/job_applications/:id  (id = slug)
+      def destroy
+        application = current_user.job_applications.find_by!(slug: params[:id])
+        application.destroy
+        head :no_content
+      rescue ActiveRecord::RecordNotFound
+        render json: { error: "Not found" }, status: :not_found
+      end
+
       private
 
       def application_params
